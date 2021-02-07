@@ -1,0 +1,8 @@
+scan_topic: /scan
+topic_queue_size: 10
+cmd_topic: /cmd_vel
+cmd_topic_queue_size: 1
+rviz_topic: visualization_marker
+rviz_topic_queue_size: 1
+forward_vel: 2.0
+angular_vel: 0.5
