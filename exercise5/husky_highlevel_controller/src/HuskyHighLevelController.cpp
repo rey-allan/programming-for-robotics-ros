@@ -92,7 +92,6 @@ void HuskyHighLevelController::scanTopicCallback(const sensor_msgs::LaserScan& m
 
 void HuskyHighLevelController::startStopCallback(const std_msgs::Bool& message)
 {
-  ROS_INFO("Received message to start/stop Husky: [%d]", message.data);
   stopHusky_ = message.data;
 }
 }  // namespace husky_highlevel_controller

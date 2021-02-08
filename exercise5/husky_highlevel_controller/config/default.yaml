@@ -8,3 +8,4 @@ forward_vel: 2.0
 angular_vel: 0.5
 start_stop_topic: /start_stop_husky
 start_stop_topic_queue_size: 10
+min_stop_distance: 1.0
