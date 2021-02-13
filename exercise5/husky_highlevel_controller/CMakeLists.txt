@@ -142,6 +142,10 @@ add_executable(husky_proximity_stop_controller_node
   src/husky_proximity_stop_controller_node.cpp
   src/HuskyProximityStopController.cpp
 )
+add_executable(husky_crash_stop_controller_node
+  src/husky_crash_stop_controller_node.cpp
+  src/HuskyCrashStopController.cpp
+)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -156,6 +160,7 @@ add_executable(husky_proximity_stop_controller_node
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
 target_link_libraries(husky_proximity_stop_controller_node ${catkin_LIBRARIES})
+target_link_libraries(husky_crash_stop_controller_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
