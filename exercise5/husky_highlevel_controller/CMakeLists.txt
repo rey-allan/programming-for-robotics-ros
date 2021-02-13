@@ -137,7 +137,6 @@ include_directories(
 add_executable(${PROJECT_NAME}_node
   src/husky_highlevel_controller_node.cpp
   src/HuskyHighLevelController.cpp
-  src/HuskyStartStopServer.cpp
 )
 add_executable(husky_proximity_stop_controller_node
   src/husky_proximity_stop_controller_node.cpp

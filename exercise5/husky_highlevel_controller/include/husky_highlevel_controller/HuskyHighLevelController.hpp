@@ -3,7 +3,7 @@
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
 #include <visualization_msgs/Marker.h>
-#include <std_msgs/Bool.h>
+#include <std_srvs/SetBool.h>
 
 namespace husky_highlevel_controller
 {
@@ -24,23 +24,21 @@ private:
   void scanTopicCallback(const sensor_msgs::LaserScan& message);
 
   /**
-   * Processes message from the `/start_stop_husky` topic.
+   * Callback that processes service requests for starting/stopping Husky.
    */
-  void startStopCallback(const std_msgs::Bool& message);
+  bool startOrStop(std_srvs::SetBool::Request& request, std_srvs::SetBool::Response& response);
 
   ros::NodeHandle& nodeHandle_;
   ros::Subscriber scanSubscriber_;
-  ros::Subscriber startStopSubscriber_;
   ros::Publisher cmdPublisher_;
   ros::Publisher rvizPublisher_;
+  ros::ServiceServer service_;
   std::string scanTopic_;
   int scanTopicQueueSize_;
   std::string cmdTopic_;
   int cmdTopicQueueSize_;
   std::string rvizTopic_;
   int rvizTopicQueueSize_;
-  std::string startStopTopic_;
-  int startStopTopicQueueSize_;
   float forwardVel_;
   float angularVel_;
   bool stopHusky_;

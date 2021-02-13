@@ -12,16 +12,14 @@ HuskyHighLevelController::HuskyHighLevelController(ros::NodeHandle& nodeHandle) 
   nodeHandle_.getParam("rviz_topic_queue_size", rvizTopicQueueSize_);
   nodeHandle_.getParam("forward_vel", forwardVel_);
   nodeHandle_.getParam("angular_vel", angularVel_);
-  nodeHandle_.getParam("start_stop_topic", startStopTopic_);
-  nodeHandle_.getParam("start_stop_topic_queue_size", startStopTopicQueueSize_);
 
   // You must hold on to the subscriber/publisher objects because whenever they go out of scope, subs are terminated!
   scanSubscriber_ =
       nodeHandle_.subscribe(scanTopic_, scanTopicQueueSize_, &HuskyHighLevelController::scanTopicCallback, this);
-  startStopSubscriber_ = nodeHandle_.subscribe(startStopTopic_, startStopTopicQueueSize_,
-                                               &HuskyHighLevelController::startStopCallback, this);
   cmdPublisher_ = nodeHandle_.advertise<geometry_msgs::Twist>(cmdTopic_, cmdTopicQueueSize_);
   rvizPublisher_ = nodeHandle_.advertise<visualization_msgs::Marker>(rvizTopic_, rvizTopicQueueSize_);
+
+  service_ = nodeHandle_.advertiseService("start_stop_husky", &HuskyHighLevelController::startOrStop, this);
 
   // Initially, Husky will start moving towards the pillar
   stopHusky_ = false;
@@ -90,8 +88,11 @@ void HuskyHighLevelController::scanTopicCallback(const sensor_msgs::LaserScan& m
   rvizPublisher_.publish(marker);
 }
 
-void HuskyHighLevelController::startStopCallback(const std_msgs::Bool& message)
+bool HuskyHighLevelController::startOrStop(std_srvs::SetBool::Request& request, std_srvs::SetBool::Response& response)
 {
-  stopHusky_ = message.data;
+  stopHusky_ = request.data;
+  response.success = true;
+
+  return true;
 }
 }  // namespace husky_highlevel_controller

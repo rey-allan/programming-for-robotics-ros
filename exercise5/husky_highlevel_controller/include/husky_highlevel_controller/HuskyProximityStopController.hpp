@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
-#include <std_msgs/Bool.h>
+#include <std_srvs/SetBool.h>
 
 namespace husky_highlevel_controller
 {
@@ -22,11 +22,10 @@ private:
 
   ros::NodeHandle& nodeHandle_;
   ros::Subscriber scanSubscriber_;
-  ros::Publisher startStopPublisher_;
+  ros::ServiceClient startStopClient_;
+  std_srvs::SetBool startStopRequest_;
   std::string scanTopic_;
   int scanTopicQueueSize_;
-  std::string startStopTopic_;
-  int startStopTopicQueueSize_;
   float minStopDistance_;
 };
 }  // namespace husky_highlevel_controller
